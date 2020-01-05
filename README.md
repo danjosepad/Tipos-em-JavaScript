@@ -76,13 +76,13 @@ const tuplaTS: [string, number, number] = ["Av Principal", 99, 150];
 console.log(tuplaTS); // ["Av Principal", 99, 150]
 ```
 # Enums (Estruturas com valores predefinidos)
-- [x] TypeScript
 ```typescript
 enum Cor {
   Cinza, // 0
   Verde, // 1
   Azul = 3 // 3
 }
+```
 - [x] JavaScript
 ```javascript
 const corJS = Cor.Verde;
