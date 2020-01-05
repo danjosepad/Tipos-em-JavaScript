@@ -1,40 +1,40 @@
 # Tipos em TypeScript
-Diferença dos tipos entre JavaScript e TypeScript. Conteúdo apresentado no curso: Entendendo TypeScript na Udemy: https://www.udemy.com/course/typescript-pt/learn/lecture/14100066#overview.
+Diferença dos tipos entre JavaScript e TypeScript. Conteúdo apresentado no curso: Entendendo TypeScript na Udemy: https://www.udemy.com/course/typescript-pt/.
 
 
 # String
 - [x] JavaScript
 ```javascript
 const nameJS = "João";
-console.log(nameJS);
+console.log(nameJS); // João
 ```
 - [x] TypeScript
 ```typescript
 const nameTS: string = "João";
-console.log(nameTS)
+console.log(nameTS) // João
 ```
 # Numbers
 - [x] JavaScript
 ```javascript
 const ageJS = 27;
-console.log(ageJS);
+console.log(ageJS); // 27
 ```
 - [x] TypeScript
 ```typescript
 const ageTS: number = 27;
-console.log(ageTS);
+console.log(ageTS); // 27
 ```
 
 # Boolean
 - [x] JavaScript
 ```javascript
 const boolJS = false;
-console.log(boolJS);
+console.log(boolJS); // false
 ```
 - [x] TypeScript
 ```typescript
 const boolTS: boolean = false;
-console.log(boolTS);
+console.log(boolTS); // false
 ```
 
 # Tipos Explicitos
@@ -42,35 +42,38 @@ console.log(boolTS);
 ```javascript
 let typeAgeJS;
 typeAgeJS = 27;
-console.log(typeof typeAgeJS);
+console.log(typeof typeAgeJS); // number
 ```
 - [x] TypeScript
 ```typescript
 let typeAgeTS: number;
 typeAgeTS = 27;
-console.log(typeof typeAgeTS);
+console.log(typeof typeAgeTS); // number
 ```
 
 # Arrays
 - [x] JavaScript
 ```javascript
 const arrayJS = ["Cozinhar", "Praticar Esportes"];
-console.log(arrayJS);
-console.log(typeof arrayJS);
+console.log(arrayJS); // ["Cozinhar", "Praticar Esportes"]
+console.log(typeof arrayJS); // object
 ```
 - [x] TypeScript
 ```typescript
 const arrayTS: any[] = ["Cozinhar", "Praticar Esportes"];
-console.log(arrayJS);
-console.log(typeof arrayJS);
+console.log(arrayJS); // ["Cozinhar", "Praticar Esportes"]
+console.log(typeof arrayJS);  // object
 ```
 # Tuplas
+- [x] JavaScript
+```javascript
+const tuplaJS = ["Av Principal", 99, 150];
+console.log(tuplaJS); // ["Av Principal", 99, 150]
+```
 - [x] TypeScript
 ```typescript
-const tuplaJS = ["Av Principal", 99, 150];
-console.log(tuplaJS);
 const tuplaTS: [string, number, number] = ["Av Principal", 99, 150];
-console.log(tuplaTS);
+console.log(tuplaTS); // ["Av Principal", 99, 150]
 ```
 # Enums (Estruturas com valores predefinidos)
 - [x] TypeScript
@@ -80,13 +83,15 @@ enum Cor {
   Verde, // 1
   Azul = 3 // 3
 }
-
+- [x] JavaScript
+```javascript
 const corJS = Cor.Verde;
-console.log(corJS);
-
+console.log(corJS); // 1
+```
+- [x] TypeScript
+```typescript
 const corTS: Cor = Cor.Verde;
-console.log(corTS);
-
+console.log(corTS); // 1
 ```
 # Any
 - [x] JavaScript
@@ -103,7 +108,7 @@ const anyTS: any = "Tipagem";
 function retornaStringJS() {
   return nameJS;
 }
-console.log(retornaStringJS());
+console.log(retornaStringJS()); // João
 ```
 - [x] TypeScript
 ```typescript
@@ -111,7 +116,7 @@ function retornaStringTS(): string {
   return nameTS;
 }
 
-console.log(retornaStringTS());
+console.log(retornaStringTS()); // João
 
 function somaTS(A: number, B: number): number {
   return A + B;
@@ -122,8 +127,9 @@ function somaTS(A: number, B: number): number {
 - [x] TypeScript
 ```typescript
 let calculoTS: (numeroA: number, numeroB: number) => number;
-calculoTS = somaTS;
-console.log(calculoTS(5, 6));
+calculoTS = somaTS; // Recebe a funcao somaTS acima, que soma 2 valores
+
+console.log(calculoTS(5, 6)); // 11
 ```
 
 # Objetos
@@ -133,7 +139,7 @@ const user: { nome: string; idade: number } = {
   nome: "Daniel",
   idade: 20
 };
-console.log(user);
+console.log(user); // {nome: "Daniel", idade: 20}
 ```
 # Definir tipo personalizado
 - [x] TypeScript
@@ -161,7 +167,7 @@ const usuario3: usuario = {
 - [x] TypeScript
 ```typescript
 let nota: number | string = 10; //Ela pode receber number ou string
-console.log(`Minha nota é ${nota}`);
+console.log(`Minha nota é ${nota}`); // Minha nota é 10
 ```
 # Checando tipos em JS
 - [x] JavaScript
@@ -197,7 +203,7 @@ const produto = {
   }
 };
 produto.validarProduto();
-
+// O tipo Never, diferente do tipo void, ou termina com um erro, ou ficará em loop sem retornar algo
 ```
 # Utilizar valores nulos em TypeScript
 - [x] TypeScript
@@ -216,5 +222,5 @@ const contato1: Contato = {
   tel1: "123456789",
   tel2: null
 };
-console.log(contato1);
+console.log(contato1); // {nome: "Daniel", tel1: "123456789", tel2: null}
 ```
