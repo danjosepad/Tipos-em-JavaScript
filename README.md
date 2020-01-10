@@ -275,3 +275,21 @@ client.knowledge = "JavaScript";
 
 console.log(client); //Client {name: "Daniel", age: 20, knowledge: "JavaScript"}
 ```
+## Interface com Função
+- [x] TypeScript
+```typescript
+interface mathFunction {
+  (a: number, b: number): number;
+}
+
+let pow: mathFunction;
+
+pow = function(base: number, exp: number): number {
+  return Array(exp)
+    .fill(base)
+    .reduce((accumulator, currentValue) => accumulator * currentValue);
+  // Ou base ** exp ou Math.pow(base, exp)
+};
+
+console.log(pow(2, 8)); // 256
+```
