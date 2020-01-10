@@ -2,7 +2,7 @@
 Diferença dos tipos entre JavaScript e TypeScript. Conteúdo apresentado no curso: Entendendo TypeScript na Udemy: https://www.udemy.com/course/typescript-pt/.
 
 
-# String
+## String
 - [x] JavaScript
 ```javascript
 const nameJS = "João";
@@ -13,7 +13,7 @@ console.log(nameJS); // João
 const nameTS: string = "João";
 console.log(nameTS) // João
 ```
-# Numbers
+## Numbers
 - [x] JavaScript
 ```javascript
 const ageJS = 27;
@@ -25,7 +25,7 @@ const ageTS: number = 27;
 console.log(ageTS); // 27
 ```
 
-# Boolean
+## Boolean
 - [x] JavaScript
 ```javascript
 const boolJS = false;
@@ -37,7 +37,7 @@ const boolTS: boolean = false;
 console.log(boolTS); // false
 ```
 
-# Tipos Explicitos
+## Tipos Explicitos
 - [x] JavaScript
 ```javascript
 let typeAgeJS;
@@ -51,7 +51,7 @@ typeAgeTS = 27;
 console.log(typeof typeAgeTS); // number
 ```
 
-# Arrays
+## Arrays
 - [x] JavaScript
 ```javascript
 const arrayJS = ["Cozinhar", "Praticar Esportes"];
@@ -64,7 +64,7 @@ const arrayTS: any[] = ["Cozinhar", "Praticar Esportes"];
 console.log(arrayJS); // ["Cozinhar", "Praticar Esportes"]
 console.log(typeof arrayJS);  // object
 ```
-# Tuplas
+## Tuplas
 - [x] JavaScript
 ```javascript
 const tuplaJS = ["Av Principal", 99, 150];
@@ -75,7 +75,7 @@ console.log(tuplaJS); // ["Av Principal", 99, 150]
 const tuplaTS: [string, number, number] = ["Av Principal", 99, 150];
 console.log(tuplaTS); // ["Av Principal", 99, 150]
 ```
-# Enums (Estruturas com valores predefinidos)
+## Enums (Estruturas com valores predefinidos)
 ```typescript
 enum Cor {
   Cinza, // 0
@@ -93,7 +93,7 @@ console.log(corJS); // 1
 const corTS: Cor = Cor.Verde;
 console.log(corTS); // 1
 ```
-# Any
+## Any
 - [x] JavaScript
 ```javascript
 const anyJS = "Tipagem";
@@ -102,7 +102,7 @@ const anyJS = "Tipagem";
 ```typescript
 const anyTS: any = "Tipagem";
 ```
-# Funções
+## Funções
 - [x] JavaScript
 ```javascript
 function retornaStringJS() {
@@ -123,7 +123,7 @@ function somaTS(A: number, B: number): number {
 }
 
 ```
-# Tipo Função
+## Tipo Função
 - [x] TypeScript
 ```typescript
 let calculoTS: (numeroA: number, numeroB: number) => number;
@@ -132,7 +132,7 @@ calculoTS = somaTS; // Recebe a funcao somaTS acima, que soma 2 valores
 console.log(calculoTS(5, 6)); // 11
 ```
 
-# Objetos
+## Objetos
 - [x] TypeScript
 ```typescript
 const user: { nome: string; idade: number } = {
@@ -141,7 +141,7 @@ const user: { nome: string; idade: number } = {
 };
 console.log(user); // {nome: "Daniel", idade: 20}
 ```
-# Definir tipo personalizado
+## Definir tipo personalizado
 - [x] TypeScript
 ```typescript
 type usuario = {
@@ -163,13 +163,13 @@ const usuario3: usuario = {
   id: 3
 };
 ```
-# Union Types
+## Union Types
 - [x] TypeScript
 ```typescript
 let nota: number | string = 10; //Ela pode receber number ou string
 console.log(`Minha nota é ${nota}`); // Minha nota é 10
 ```
-# Checando tipos em JS
+## Checando tipos em JS
 - [x] JavaScript
 ```javascript
 const valor = 30;
@@ -181,7 +181,7 @@ if (typeof valor === "number") {
 }
 
 ```
-# Tipo Never (Ou termina com erro ou fica em loop)
+## Tipo Never (Ou termina com erro ou fica em loop)
 - [x] TypeScript
 ```typescript
 function falha(msg: string): never {
@@ -205,7 +205,7 @@ const produto = {
 produto.validarProduto();
 // O tipo Never, diferente do tipo void, ou termina com um erro, ou ficará em loop sem retornar algo
 ```
-# Utilizar valores nulos em TypeScript
+## Utilizar valores nulos em TypeScript
 - [x] TypeScript
 ```typescript
 let alturaOpcional: null | number = 14;
@@ -223,4 +223,38 @@ const contato1: Contato = {
   tel2: null
 };
 console.log(contato1); // {nome: "Daniel", tel1: "123456789", tel2: null}
+```
+# Conceitos em TypeScript
+
+## Interfaces
+- [x] TypeScript
+```typescript
+
+//Interface representa um contrato, e um objeto precisa atender as exigencias dessa interface
+interface Human {
+  name: string;
+  age?: number; // Quer dizer que o atributo idade pode ou não aparecer dentro do objeto
+  [prop: string]: any; //Não se sabe o nome nem o tipo do atributo
+}
+
+function sayHello(person: Human) {
+  console.log(`Hello, ${person.name}`);
+}
+function changeName(person: Human) {
+  person.name = "Joana";
+}
+
+const person: Human = {
+  name: "João",
+  age: 27
+};
+
+sayHello(person); // Hello, João
+changeName(person); // Hello, Joana
+sayHello(person);
+sayHello({
+  name: "Carl",
+  age: 27,
+  attribute: true
+}); // Hello, Carl
 ```
