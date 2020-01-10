@@ -258,3 +258,20 @@ sayHello({
   attribute: true
 }); // Hello, Carl
 ```
+## Classes com Interfaces
+- [x] TypeScript
+```typescript
+
+class Client implements Human {
+  name: string = "";
+  age: number = 0;
+  knowledge: string = "Javascript";
+}
+
+const client = new Client();
+client.name = "Daniel";
+client.age = 20;
+client.knowledge = "JavaScript";
+
+console.log(client); //Client {name: "Daniel", age: 20, knowledge: "JavaScript"}
+```
