@@ -226,7 +226,7 @@ console.log(contato1); // {nome: "Daniel", tel1: "123456789", tel2: null}
 ```
 # Conceitos em TypeScript
 
-## Interfaces
+# Interfaces
 - [x] TypeScript
 ```typescript
 
@@ -292,4 +292,196 @@ pow = function(base: number, exp: number): number {
 };
 
 console.log(pow(2, 8)); // 256
+```
+
+# Generics 
+
+ O nome generics não vem de quem usa, e sim de quem construiu algo, como a função
+ echo abaixo, e em algum momento poderá ser especificada.
+ - [x] TypeScript
+```typescript
+function echo<T>(object: T): T {
+  return object; // <T> definiu um tipo generico
+}
+
+console.log(echo("Daniel".length)); // Se torna um tipo definido no momento da execução
+
+console.log(echo(27.lenght)); //O generic identificou que o 27 é number, e não possui .lenght
+
+console.log(echo({ name: "Daniel", age: 20 })); // {name: "Daniel", age: 20}
+
+console.log(echo<number>(27)); // 27
+```
+## Array
+ - [x] TypeScript
+```typescript
+const grades: Array<number> = [10, 9.3, 7.7]; // A notação do generics especifica o tipo
+grades.push(8.4);
+grades.push("5.5"); //No momento que se define o <number>, essa linha retornará erro
+console.log(grades); // (5) [10, 9.3, 7.7, 8.4, "5,5"]
+
+/*
+ O browser ainda apresenta o array, porém o código poderá ser configurado a
+ não compilar caso o arquivo .ts contenha algum erro, previnindo assim a linha
+ (avaliacoes.push("5.5") de funcionar.
+*/
+
+function print<T>(args: T[]) {
+  args.forEach(element => console.log(element));
+}
+
+print([1, 2, 3]);
+// 1
+// 2
+// 3
+print<number>([1, 2, 3]);
+// 1
+// 2
+// 3
+print<string>(["Daniel", "Brunno", "Ramon"]);
+// Daniel
+// Brunno
+// Ramon
+print<{ name: string; age: number }>([
+  { name: "Daniel", age: 20 },
+  { name: "Brito", age: 20 },
+  { name: "Mateus", age: 20 }
+]);
+// { name: "Daniel", age: 20 }
+// { name: "Brito", age: 20 }
+// { name: "Mateus", age: 20 }
+type Student = { name: string; age: number };
+// Pode usar um tipo para especificar a função generica
+print<Student>([
+  { name: "Daniel", age: 20 },
+  { name: "Brito", age: 20 },
+  { name: "Mateus", age: 20 }
+]);
+// { name: "Daniel", age: 20 }
+// { name: "Brito", age: 20 }
+// { name: "Mateus", age: 20 }
+```
+## Tipo Generico
+- [x] TypeScript
+```typescript
+type Echo = <T>(data: T) => T;
+const callEcho: Echo = echo;
+// Ou const callEcho: <T>(data: T) => T = echo;
+
+/*
+Chamando a função echo nessa classe, que é:
+  function echo<T>(object: T): T {
+    return object;
+  }
+*/
+
+console.log(callEcho<string>("Something happened")); // Something happened
+```
+## Classes com Generics
+- [x] TypeScript
+```typescript
+class BinaryOperation {
+  constructor(public operator1: any, public operator2: any) {}
+
+  execute() {
+    return this.operator1 + this.operator2;
+  }
+}
+
+console.log(new BinaryOperation("Good ", "Morning").execute()); // Good Morning
+console.log(new BinaryOperation(3, 7).execute()); // 10
+console.log(new BinaryOperation(3, " Ops").execute()); //3 Ops
+
+console.log(new BinaryOperation({}, {}).execute()); // Como concatenar os dois objetos?
+// [object Object][object Object]
+
+// Na prática esse tipo de operação não faz sentido, e pode causar problemas.
+```
+
+- [x] Prosseguindo com Generics
+```typescript
+class BinaryOperation<T> {
+  constructor(public operator1: T, public operator2: T) {}
+
+  execute() {
+    return this.operator1 + this.operator2;
+    // Retornará erro, pois o operador + não pode ser usado com os tipos genericos;
+  }
+}
+```
+- [x] Usando Abstract com Generics
+ O abstract não está ligado ao generics, o uso dele é pelo fato de deixar abstrato
+pois não se sabe como utilizá-la, e a responsabilidade será passada para os filhos
+da classe
+```typescript
+abstract class BinaryOperation<T, R> {
+  constructor(public operator1: T, public operator2: T) {}
+
+  abstract execute(): R;
+  // O R representará o retorno, que pode ser diferente dos operadores
+  /*
+  A flexibilidade dos parâmetros nos generics será definida durante o desenvolvimento
+  onde pode haver um parametro para cada parametro, ou retorno
+  como <T (para operator1), U (para operator2), R(para retorno)>
+  */
+}
+
+class BinarySum extends BinaryOperation<number, number> {
+  execute(): number {
+    return this.operator1 + this.operator2;
+  }
+}
+
+console.log(new BinarySum(3, 4).execute()); // 7
+
+
+class DifferenceBetweenDates extends BinaryOperation<Data, string> {
+  
+   /*
+  Função data chamada:
+  class Data {
+  // Público por padrão
+  day: number;
+  public month: number;
+  year: number;
+
+  constructor(day: number = 1, month: number = 1, year: number = 1970) {
+    this.day = day;
+    this.month = month;
+    this.year = year;
+  }
+}
+*/
+ 
+
+  getTime(data: Data): number {
+    const { day, month, year } = data;
+    
+    return new Date(`${month}/${day}/${year}`).getTime();
+  }
+  
+  execute(): string {
+    const t1 = this.getTime(this.operator1);
+    const t2 = this.getTime(this.operator2);
+    
+    const diff = Math.abs(t1 - t2);
+    const day = 1000 * 60 * 60 * 24; // Dia em milisegundos
+
+    return `${Math.ceil(diff / day)} day(s)`;
+  }
+} // Retorna a diferença entre duas datas
+
+const d1 = new Data(1, 2, 2020);
+const d2 = new Data(5, 2, 2020);
+
+console.log(new DifferenceBetweenDates(d1, d2).execute()); // 4 day(s)
+```
+
+## Restrições com Generics
+```typescript
+<T extends number>
+// T só pode ser tipo number, ou outra subclasse do tipo
+
+<T extends number | string>
+// T pode ser ou number, ou string, ou subclasses dessas
 ```
